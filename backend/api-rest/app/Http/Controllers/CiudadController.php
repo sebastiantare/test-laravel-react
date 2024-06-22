@@ -70,4 +70,17 @@ class CiudadController extends Controller
 
         return response()->json(['message' => 'Ciudad deleted']);
     }
+
+    public function getCalles($id)
+    {
+        $ciudad = Ciudad::find($id);
+
+        if (!$ciudad) {
+            return response()->json(['message' => 'Ciudad not found'], 404);
+        }
+
+        $calles = $ciudad->calle;
+
+        return response()->json($calles, 200);
+    }
 }

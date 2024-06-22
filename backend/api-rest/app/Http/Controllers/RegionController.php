@@ -64,4 +64,17 @@ class RegionController extends Controller
 
         return response()->json(['message' => 'Region deleted']);
     }
+
+    public function getProvincias($id)
+    {
+        $region = Region::find($id);
+
+        if (!$region) {
+            return response()->json(['message' => 'Region not found'], 404);
+        }
+
+        $provincias = $region->provincia;
+
+        return response()->json($provincias, 200);
+    }
 }

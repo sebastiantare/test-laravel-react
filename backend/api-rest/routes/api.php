@@ -20,3 +20,7 @@ Route::resource('regiones', RegionController::class)->parameters(['regiones' => 
 Route::resource('ciudades', CiudadController::class)->parameters(['ciudades' => 'ciudad']);
 Route::resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
 Route::resource('calles', CalleController::class)->parameters(['calles' => 'calle']);
+
+Route::get('regiones/{id}/provincias', [RegionController::class, 'getProvincias']);
+Route::get('provincias/{id}/ciudades', [ProvinciaController::class, 'getCiudades']);
+Route::get('ciudades/{id}/calles', [CiudadController::class, 'getCalles']);

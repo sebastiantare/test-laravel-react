@@ -13,12 +13,12 @@ class Provincia extends Model
 
     protected $fillable = ['nombre', 'region_id'];
 
-    public function regiones()
+    public function region()
     {
         return $this->belongsTo(Region::class);
     }
 
-    public function ciudades()
+    public function ciudad()
     {
         return $this->hasMany(Ciudad::class);
     }

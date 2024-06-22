@@ -13,7 +13,7 @@ class Calle extends Model
 
     protected $fillable = ['nombre', 'ciudad_id'];
 
-    public function ciudades()
+    public function ciudad()
     {
         return $this->belongsTo(Ciudad::class);
     }

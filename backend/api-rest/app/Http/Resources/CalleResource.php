@@ -14,6 +14,13 @@ class CalleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        //return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'nombre' => $this->nombre,
+            'ciudad' => $this->ciudad->nombre,
+            'provincia' => $this->ciudad->provincia->nombre,
+            'region' => $this->ciudad->provincia->region->nombre,
+        ];
     }
 }

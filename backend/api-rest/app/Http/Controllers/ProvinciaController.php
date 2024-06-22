@@ -76,4 +76,17 @@ class ProvinciaController extends Controller
 
         return response()->json(['message' => 'Provincia deleted']);
     }
+
+    public function getCiudades($id)
+    {
+        $provincia = Provincia::find($id);
+
+        if (!$provincia) {
+            return response()->json(['message' => 'Provincia not found'], 404);
+        }
+
+        $ciudades = $provincia->ciudad;
+
+        return response()->json($ciudades, 200);
+    }
 }

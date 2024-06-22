@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CalleResource;
 use App\Models\Calle;
 use Illuminate\Http\Request;
 
@@ -10,8 +11,11 @@ class CalleController extends Controller
 
     public function index()
     {
-        $callees = Calle::all();
-        return response()->json($callees);
+        // Eager load ciudad, provincia, and region relationships
+        $calles = Calle::with('ciudad')->get();
+
+        // Return CalleResource collection with nested data
+        return CalleResource::collection($calles);
     }
 
     public function store(Request $request)

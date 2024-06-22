@@ -13,12 +13,12 @@ class Ciudad extends Model
 
     protected $fillable = ['nombre', 'provincia_id'];
 
-    public function provincias()
+    public function provincia()
     {
         return $this->belongsTo(Provincia::class);
     }
 
-    public function calles()
+    public function calle()
     {
         return $this->hasMany(Calle::class);
     }
