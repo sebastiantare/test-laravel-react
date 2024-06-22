@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CalleResource;
 use Illuminate\Http\Request;
 use App\Models\Ciudad;
 
@@ -81,6 +82,6 @@ class CiudadController extends Controller
 
         $calles = $ciudad->calle;
 
-        return response()->json($calles, 200);
+        return response()->json(CalleResource::collection($calles), 200);
     }
 }
