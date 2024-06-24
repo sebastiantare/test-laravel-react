@@ -1,10 +1,12 @@
-import { TableCalle, Calle, Pagination } from "../types";
+import type { TableCalle, Calle, Pagination } from "../types";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_HOST;
 
-export async function getCalles(page: string | null = baseUrl + '/calles'): Promise<Pagination<TableCalle>> {
+export async function getCalles(page: string | null = null, query = ''): Promise<Pagination<TableCalle>> {
   try {
-    const url = page ?? `${baseUrl}/calles`;
+    let url = page ?? `${baseUrl}/calles?query=${query}`;
+    if (page) url = `${url}&query=${query}`
+
     const response = await fetch(url);
     const data = await response.json() as Pagination<TableCalle>;
     return data;
@@ -13,6 +15,7 @@ export async function getCalles(page: string | null = baseUrl + '/calles'): Prom
     throw error;
   }
 }
+
 
 export async function getCalle(id: number): Promise<Calle> {
   try {
@@ -25,7 +28,7 @@ export async function getCalle(id: number): Promise<Calle> {
   }
 }
 
-export async function createCalle(data: Calle) {
+export async function createCalle(data: Calle | { nombre: string, ciudad_id: number }) {
   try {
     const response = await fetch(baseUrl + `/calles`, {
       method: 'POST',

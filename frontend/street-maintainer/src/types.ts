@@ -11,19 +11,19 @@ export interface Region {
 export interface Provincia {
   id: number;
   nombre: string;
-  id_region: number;
+  region_id: number;
 }
 
 export interface Ciudad {
   id: number;
   nombre: string;
-  id_provincia: number;
+  provincia_id: number;
 }
 
 export interface Calle {
   id: number;
   nombre: string;
-  id_ciudad: number;
+  ciudad_id: number;
 }
 
 /**
