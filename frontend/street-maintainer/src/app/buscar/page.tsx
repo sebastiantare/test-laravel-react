@@ -45,7 +45,7 @@ const Buscar = ({ }) => {
 
   const SearchTableCalles = ({ pageData }: { pageData: Pagination<TableCalle> }) => {
     return (
-      <div className="overflow-x-auto">
+      <div className="">
 
         <table className="min-w-full bg-white border border-gray-200">
           <thead>

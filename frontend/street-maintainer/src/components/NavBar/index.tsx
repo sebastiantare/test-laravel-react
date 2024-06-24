@@ -13,17 +13,23 @@ const Navigation = () => {
           <ul className="hidden md:flex p-4 gap-x-6 text-black ">
             <li>
               <Link href="/" >
-                <p className={`link ${pathname === '/' ? 'active' : ''}`}>Home</p>
+                <div className={`link ${pathname === '/' ? 'active' : ''} m-4`}>
+                  <p>Home</p>
+                </div>
               </Link>
             </li>
             <li>
               <Link href="/buscar">
-                <p className={`link ${pathname === '/buscar' ? 'active' : ''}`}>Buscar</p>
+                <div className={`link ${pathname === '/buscar' ? 'active' : ''} m-4`}>
+                  <p>Buscar</p>
+                </div>
               </Link>
             </li>
             <li>
               <Link href="/mantenedor" >
-                <p className={`link ${pathname === '/mantenedor' ? 'active' : ''}`}>Mantenedor</p>
+                <div className={`link ${pathname === '/mantenedor' ? 'active' : ''} m-4`}>
+                  <p>Mantenedor</p>
+                </div>
               </Link>
             </li>
           </ul>

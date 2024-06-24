@@ -59,8 +59,11 @@ const Mantenedor = () => {
   const id = useId();
 
   return (
-    <div className='flex flex-row items-center'>
+    <div className='flex flex-row items-center text-sm'>
+
       <div className='p-4'>
+        <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">Región:</label>
+
         <Select
           options={regiones.map((region) => ({ value: region, label: region.nombre }))}
           onChange={(event) => handleRegiones(event)}
@@ -69,22 +72,35 @@ const Mantenedor = () => {
         />
       </div>
       <div className='p-4'>
-          <Select
-            options={provincias.map((provincia) => ({ value: provincia, label: provincia.nombre }))}
-            onChange={(event) => handleProvincias(event)}
-            value={selectedProvincia}
-            instanceId={id}
-            isDisabled={!selectedRegion}
-          />
+        <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">Provincia:</label>
+
+        <Select
+          options={provincias.map((provincia) => ({ value: provincia, label: provincia.nombre }))}
+          onChange={(event) => handleProvincias(event)}
+          value={selectedProvincia}
+          instanceId={id}
+          isDisabled={!selectedRegion}
+        />
       </div>
       <div className='p-4'>
-          <Select
-            options={ciudades.map((ciudad) => ({ value: ciudad, label: ciudad.nombre }))}
-            onChange={(event) => handleCiudades(event)}
-            value={selectedCiudad}
-            instanceId={id}
-            isDisabled={!selectedProvincia}
-          />
+        <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">Ciudad:</label>
+
+        <Select
+          options={ciudades.map((ciudad) => ({ value: ciudad, label: ciudad.nombre }))}
+          onChange={(event) => handleCiudades(event)}
+          value={selectedCiudad}
+          instanceId={id}
+          isDisabled={!selectedProvincia}
+        />
+      </div>
+      <div className="p-4">
+        <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">Nombre Calle:</label>
+        <input
+          type="text"
+          id="textInput"
+          name="textInput"
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
       </div>
     </div>
   );
