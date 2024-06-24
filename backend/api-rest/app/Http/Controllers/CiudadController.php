@@ -72,6 +72,7 @@ class CiudadController extends Controller
         return response()->json(['message' => 'Ciudad deleted']);
     }
 
+    // Obtener las calles de la ciudad
     public function getCalles($id)
     {
         $ciudad = Ciudad::find($id);

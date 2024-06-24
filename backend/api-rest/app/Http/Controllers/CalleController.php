@@ -9,10 +9,18 @@ use Illuminate\Http\Request;
 class CalleController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // Eager load ciudad, provincia, and region relationships
-        $calles = Calle::with('ciudad')->get();
+        $query = $request->input('query');
+
+        if ($query) {
+            $calles = Calle::with('ciudad')
+                ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($query) . '%'])
+                ->orderBy('updated_at', 'desc')
+                ->paginate(20);
+        } else {
+            $calles = Calle::with('ciudad')->orderBy('updated_at', 'desc')->paginate(20);
+        }
 
         // Return CalleResource collection with nested data
         return CalleResource::collection($calles);
