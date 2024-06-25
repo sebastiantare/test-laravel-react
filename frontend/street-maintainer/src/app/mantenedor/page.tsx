@@ -3,7 +3,7 @@ import React, { useState, useEffect, useId } from "react";
 import { getRegiones, getProvinciasFromRegion } from "~/actions/regiones";
 import { getCiudadesFromProvincia } from "~/actions/provincias";
 import type { Provincia, Region, SelectType, Ciudad } from "~/types";
-import Select from 'react-select'
+import Select from 'react-select';
 import { createCalle } from "~/actions/calles";
 
 const Mantenedor = () => {
@@ -12,9 +12,9 @@ const Mantenedor = () => {
   const [ciudades, setCiudades] = useState<Ciudad[]>([]);
   const [calleName, setCalleName] = useState<string>('');
 
-  const [selectedRegion, setSelectedRegion] = useState<SelectType<Region> | undefined>(undefined);
-  const [selectedProvincia, setSelectedProvincia] = useState<SelectType<Provincia> | undefined>(undefined);
-  const [selectedCiudad, setSelectedCiudad] = useState<SelectType<Ciudad> | undefined>(undefined);
+  const [selectedRegion, setSelectedRegion] = useState<SelectType<Region> | null>(null);
+  const [selectedProvincia, setSelectedProvincia] = useState<SelectType<Provincia> | null>(null);
+  const [selectedCiudad, setSelectedCiudad] = useState<SelectType<Ciudad> | null>(null);
 
   useEffect(() => {
     getRegiones()
@@ -42,18 +42,18 @@ const Mantenedor = () => {
     }
   }, [selectedProvincia]);
 
-  const handleRegiones = (event: SelectType<Region>) => {
+  const handleRegiones = (event: SelectType<Region> | null) => {
     setSelectedRegion(event);
     setSelectedProvincia(null);
     setSelectedCiudad(null);
   };
 
-  const handleProvincias = (event: SelectType<Provincia>) => {
+  const handleProvincias = (event: SelectType<Provincia> | null) => {
     setSelectedProvincia(event);
     setSelectedCiudad(null);
   };
 
-  const handleCiudades = (event: SelectType<Ciudad>) => {
+  const handleCiudades = (event: SelectType<Ciudad> | null) => {
     setSelectedCiudad(event);
   };
 
@@ -70,6 +70,7 @@ const Mantenedor = () => {
 
     if (calleName.length < 4) {
       alert("Debe ingresar un nombre con más de 5 caracteres.");
+      return;
     }
 
     const newCalle = {

@@ -1,4 +1,4 @@
-import { Region, Provincia } from "../types";
+import type { Region, Provincia } from "../types";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_HOST;
 

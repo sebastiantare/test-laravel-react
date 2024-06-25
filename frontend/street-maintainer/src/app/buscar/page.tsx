@@ -1,7 +1,12 @@
 'use client'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
-import { getCalle, getCalles } from "~/actions/calles";
+import { deleteCalle, getCalle, getCalles, updateCalle } from "~/actions/calles";
 import type { Pagination, TableCalle, Calle } from "~/types";
+import DeleteModal from "~/components/DeleteModal";
+import UpdateModal from "~/components/UpdateModal";
+
 
 const initialPaginationState: Pagination<TableCalle> = {
   meta: {
@@ -25,6 +30,9 @@ const initialPaginationState: Pagination<TableCalle> = {
 const Buscar = ({ }) => {
   const [filtros, setFiltros] = useState<string>('');
   const [calles, setCalles] = useState<Pagination<TableCalle>>(initialPaginationState);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
+  const [selectedCalle, setSelectedCalle] = useState<TableCalle | null>(null);
 
   useEffect(() => {
     getCalles()
@@ -48,6 +56,52 @@ const Buscar = ({ }) => {
     }
   };
 
+  const handleOnClickDelete = (calle: TableCalle) => {
+    setSelectedCalle(calle);
+    setIsOpenDelete(true);
+  }
+
+  const handleOnDelete = () => {
+    if (!selectedCalle) return;
+    deleteCalle(selectedCalle.id).then((result) => {
+      //alert("Calle eliminada exitosamente.");
+      console.log(result);
+      setIsOpenDelete(false);
+
+      getCalles()
+        .then((data) => setCalles(data))
+        .catch(e => console.log(e));
+    }).catch(e => console.log(e));
+  }
+
+  const handleOnClickUpdate = (calle: TableCalle) => {
+    setSelectedCalle(calle);
+    setIsOpenUpdate(true);
+  }
+
+  const handleOnUpdate = (newCalle: Calle) => {
+    if (!newCalle) return;
+    updateCalle(newCalle).then((result) => {
+      //alert("Calle actualizada exitosamente.");
+      console.log(result);
+      setIsOpenUpdate(false);
+
+      getCalles()
+        .then((data) => setCalles(data))
+        .catch(e => console.log(e));
+    }).catch(e => console.log(e));
+  }
+
+  const handleCloseDelete = () => {
+    setIsOpenDelete(false);
+    setSelectedCalle(null);
+  }
+
+  const handleCloseUpdate = () => {
+    setIsOpenUpdate(false);
+    setSelectedCalle(null);
+  }
+
   const SearchTableCalles = ({ pageData }: { pageData: Pagination<TableCalle> }) => {
     return (
       <div className="">
@@ -59,6 +113,7 @@ const Buscar = ({ }) => {
               <th className="py-2 px-4 border-b">Ciudad</th>
               <th className="py-2 px-4 border-b">Provincia</th>
               <th className="py-2 px-4 border-b">Región</th>
+              <th className="py-2 px-4 border-b"></th>
             </tr>
           </thead>
           <tbody className="text-sm">
@@ -67,7 +122,21 @@ const Buscar = ({ }) => {
                 <td className="py-2 px-4 border-b">{calle.nombre}</td>
                 <td className="py-2 px-4 border-b">{calle.ciudad}</td>
                 <td className="py-2 px-4 border-b">{calle.provincia}</td>
-                <td className="py-2 px-4 border-b">{calle.region}</td>
+                <td className="py-2 px-2 border-b">{calle.region}</td>
+                <td className="py-2 px-1 border-b">
+                  <div className="flex flex-row items-center justify-end pr-4 rounded-lg">
+                    <button
+                      onClick={() => handleOnClickUpdate(calle)}
+                      className="bg-blue-300 text-white py-1 px-2 rounded-full mr-2 hover:bg-blue-600 transition duration-150 ease-in-out">
+                      <FontAwesomeIcon icon={faPencil} />
+                    </button>
+                    <button
+                      onClick={() => handleOnClickDelete(calle)}
+                      className="bg-red-300 text-white py-1 px-2 rounded-full hover:bg-red-600 transition duration-150 ease-in-out">
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -116,6 +185,8 @@ const Buscar = ({ }) => {
         </div>
       </div>
       <SearchTableCalles pageData={calles} />
+      <DeleteModal isOpen={isOpenDelete} onClose={() => handleCloseDelete()} onDelete={() => handleOnDelete()} calle={selectedCalle} />
+      <UpdateModal isOpen={isOpenUpdate} onClose={() => handleCloseUpdate()} onUpdate={(newCalle) => handleOnUpdate(newCalle)} calle={selectedCalle} />
     </div>
   );
 }
