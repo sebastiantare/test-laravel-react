@@ -73,6 +73,18 @@ const Mantenedor = () => {
       return;
     }
 
+    if (calleName.length > 127) {
+      alert("Debe ingresar un nombre de menos de 128 caracteres.");
+      return;
+    }
+
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü'"\- ][\wÁÉÍÓÚáéíóúÑñÜü'"\- ]*$/;
+
+    if (!regex.test(calleName)) {
+      alert("Debe ingresar un nombre válido.");
+      return;
+    }
+
     const newCalle = {
       nombre: calleName,
       ciudad_id: selectedCiudad.value.id
@@ -110,7 +122,7 @@ const Mantenedor = () => {
             styles={{
               control: (provided) => ({
                 ...provided,
-                width: `200px`,
+                width: '200px',
               }),
             }}
           />
@@ -127,7 +139,7 @@ const Mantenedor = () => {
             styles={{
               control: (provided) => ({
                 ...provided,
-                width: `200px`,
+                width: '200px',
               }),
             }}
           />
@@ -144,7 +156,7 @@ const Mantenedor = () => {
             styles={{
               control: (provided) => ({
                 ...provided,
-                width: `200px`,
+                width: '200px',
               }),
             }}
           />

@@ -59,6 +59,16 @@ const Buscar = ({ }) => {
       .catch(e => console.log(e));
   }, [filtros]);
 
+  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü'"\- ][\wÁÉÍÓÚáéíóúÑñÜü'"\- ]*$/;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    console.log(value);
+    if (regex.test(value) || value === '') {
+      setFiltros({ ...filtros, [name]: value });
+    }
+  };
+
   const handlePagination = (page: string | null) => {
     if (page) {
       getCalles(page, filtros).then((data) => setCalles(data)).catch(e => console.log(e));
@@ -187,11 +197,11 @@ const Buscar = ({ }) => {
           <input
             placeholder="Calle"
             type="text"
-            id="textInput"
-            name="textInput"
+            id="nombre"
+            name="nombre"
             className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={filtros.nombre}
-            onChange={(e) => setFiltros({ ...filtros, 'nombre': e.target.value })}
+            onChange={handleChange}
           />
         </div>
 
@@ -199,33 +209,33 @@ const Buscar = ({ }) => {
           <input
             placeholder="Ciudad"
             type="text"
-            id="textInput"
-            name="textInput"
+            id="ciudad"
+            name="ciudad"
             className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={filtros.ciudad}
-            onChange={(e) => setFiltros({ ...filtros, 'ciudad': e.target.value })}
+            onChange={handleChange}
           />
         </div>
         <div className="px-8 py-2">
           <input
             placeholder="Provincia"
             type="text"
-            id="textInput"
-            name="textInput"
+            id="provincia"
+            name="provincia"
             className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={filtros.provincia}
-            onChange={(e) => setFiltros({ ...filtros, 'provincia': e.target.value })}
+            onChange={handleChange}
           />
         </div>
         <div className="px-8 py-2">
           <input
             placeholder="Region"
             type="text"
-            id="textInput"
-            name="textInput"
+            id="region"
+            name="region"
             className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             value={filtros.region}
-            onChange={(e) => setFiltros({ ...filtros, 'region': e.target.value })}
+            onChange={handleChange}
           />
         </div>
       </div>
