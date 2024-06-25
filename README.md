@@ -1,10 +1,12 @@
-# Clone Project
+# Install Instructions
+
+## Clone Project
 ```bash
 git clone git@github.com:sebastiantare/test-laravel-react.git
 cd test-laravel-react
 ```
 
-# Backend (linux)
+# Backend
 
 ## Install PHP 8.1
 ```bash
@@ -45,13 +47,13 @@ exit
 
 ## Setup Laravel .env and .env.testing
 
-.env
-
 ```bash
 cd backend/api-rest/
 cp .env.example .env
 cp .env.example .env.testing
 ```
+
+Replace in .env
 
 ```env
 DB_CONNECTION=pgsql
@@ -62,7 +64,7 @@ DB_USERNAME=streets-user
 DB_PASSWORD=admin
 ```
 
-.env.testing
+Replace in .env.testing
 
 ```env
 DB_CONNECTION=pgsql
@@ -83,7 +85,7 @@ composer install
 php artisan key:generate
 ```
 
-This will generate the **APP_KEY** on the .env. **Copy and pase it on the empty APP_KEY in .env.testing**
+This will generate the **APP_KEY** on the .env. **Copy and paste it on the empty APP_KEY in .env.testing**
 
 ## Run migrations
 ```bash
@@ -109,6 +111,11 @@ php artisan db:seed --class=CalleSeeder
 php artisan serve
 ```
 
+This will start running the API on <a href="http://localhost:8000" target="_blank">http://localhost:8000</a>
+
+Example: http://localhost:8000/api/calles
+
+
 # Frontend
 
 Node version 18. Created with [T3](https://t3.gg/) Stack (Next.js) just for the frontend.
@@ -120,7 +127,13 @@ npm install
 ```
 
 ## Setup .env
+
+```bash
+cp .env.example .env
+```
+
 ```env
+...
 NEXT_PUBLIC_API_HOST="http://localhost:8000/api"
 ```
 
@@ -128,3 +141,13 @@ NEXT_PUBLIC_API_HOST="http://localhost:8000/api"
 ```bash
 npm run dev
 ```
+
+Finally go to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+
+
+
+
+
+
+
+
