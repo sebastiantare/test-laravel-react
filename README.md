@@ -33,6 +33,9 @@ exit
 ```
 
 ## Setup Laravel .env and .env.testing
+
+.env
+
 ```env
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -41,6 +44,8 @@ DB_DATABASE=streets-db
 DB_USERNAME=streets-user
 DB_PASSWORD=admin
 ```
+
+.env.testing
 
 ```env
 DB_CONNECTION=pgsql
