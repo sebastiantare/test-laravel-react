@@ -72,6 +72,19 @@ DB_DATABASE=streets-db-testing
 DB_USERNAME=streets-user
 DB_PASSWORD=admin
 ```
+
+## Install packages
+```
+composer install
+```
+
+## Generate the APP Key
+```
+php artisan key:generate
+```
+
+This will generate the **APP_KEY** on the .env. **Copy and pase it on the empty APP_KEY in .env.testing**
+
 ## Run migrations
 ```bash
 php artisan migrate
