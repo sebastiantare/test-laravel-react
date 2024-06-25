@@ -4,7 +4,7 @@ git clone git@github.com:sebastiantare/test-laravel-react.git
 cd test-laravel-react
 ```
 
-# Backend
+# Backend (linux)
 
 ## Install PHP 8.1
 ```bash
