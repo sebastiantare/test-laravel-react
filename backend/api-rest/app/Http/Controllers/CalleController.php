@@ -5,24 +5,56 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CalleResource;
 use App\Models\Calle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CalleController extends Controller
 {
 
     public function index(Request $request)
     {
-        $query = $request->input('query');
+        $query = $request->input('query'); // Calle nombre query
+        $ciudadQuery = $request->input('ciudad');
+        $provinciaQuery = $request->input('provincia');
+        $regionQuery = $request->input('region');
 
-        if ($query) {
-            $calles = Calle::with('ciudad')
-                ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($query) . '%'])
+        if ($query || $ciudadQuery || $provinciaQuery || $regionQuery) {
+            $callesQuery = Calle::query();
+
+            if ($query) {
+                $callesQuery->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($query) . '%']);
+            }
+
+            if ($ciudadQuery) {
+                $callesQuery->whereHas('ciudad', function ($query) use ($ciudadQuery) {
+                    $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($ciudadQuery) . '%']);
+                });
+            }
+
+            if ($provinciaQuery) {
+                $callesQuery->whereHas('ciudad.provincia', function ($query) use ($provinciaQuery) {
+                    $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($provinciaQuery) . '%']);
+                });
+            }
+
+            if ($regionQuery) {
+                $callesQuery->whereHas('ciudad.provincia.region', function ($query) use ($regionQuery) {
+                    $query->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($regionQuery) . '%']);
+                });
+            }
+
+            $calles = $callesQuery->with('ciudad')
                 ->orderBy('updated_at', 'desc')
                 ->paginate(20);
-        } else {
+        }
+
+        /*$calles = Calle::with('ciudad')
+                    ->whereRaw('LOWER(nombre) LIKE ?', ['%' . strtolower($query) . '%'])
+                    ->orderBy('updated_at', 'desc')
+                    ->paginate(20);*/
+        else {
             $calles = Calle::with('ciudad')->orderBy('updated_at', 'desc')->paginate(20);
         }
 
-        // Return CalleResource collection with nested data
         return CalleResource::collection($calles);
     }
 

@@ -77,7 +77,8 @@ class CalleControllerTest extends TestCase
         $calle = Calle::factory()->create();
 
         $response = $this->put("/api/calles/{$calle->id}", [
-            'nombre' => 'Test Edited 123'
+            'nombre' => 'Test Edited 123',
+            'ciudad_id' => $calle->ciudad_id
         ]);
 
         $response->assertStatus(200);
@@ -98,6 +99,5 @@ class CalleControllerTest extends TestCase
         $calle = Calle::factory()->create();
         $response = $this->delete("/api/calles/{$calle->id}");
         $response->assertStatus(204);
-        // Additional assertions
     }
 }
