@@ -133,7 +133,6 @@ cp .env.example .env
 ```
 
 ```env
-...
 NEXT_PUBLIC_API_HOST="http://localhost:8000/api"
 ```
 
