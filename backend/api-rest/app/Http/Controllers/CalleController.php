@@ -53,7 +53,7 @@ class CalleController extends Controller
             return response()->json(['error' => 'Calle not found'], 404);
         }
 
-        return response()->json($calle);
+        return response()->json($calle, 200);
     }
 
     public function update(Request $request, $id)
@@ -65,9 +65,11 @@ class CalleController extends Controller
         }
 
         $calle->nombre = $request->input('nombre');
+        $calle->ciudad_id = $request->input('ciudad_id');
+
         $calle->save();
 
-        return response()->json($calle);
+        return response()->json($calle, 200);
     }
 
     public function destroy($id)
@@ -80,6 +82,6 @@ class CalleController extends Controller
 
         $calle->delete();
 
-        return response()->json(['message' => 'Calle deleted']);
+        return response()->json(['message' => 'Calle deleted'], 204);
     }
 }
