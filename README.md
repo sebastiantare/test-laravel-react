@@ -22,15 +22,17 @@ https://www.postgresql.org/download/
 ```bash
 sudo -i -u postgres
 createdb streets-db
+createdb streets-db-testing
 createuser --interactive --pwprompt
-//streets-user with password admin, non-superuser
+# streets-user with password admin, non-superuser
 psql
 GRANT ALL PRIVILEGES ON DATABASE "streets-db" TO "streets-user";
+GRANT ALL PRIVILEGES ON DATABASE "streets-db-testing" TO "streets-user";
 \q
 exit
 ```
 
-## Setup Laravel .env
+## Setup Laravel .env and .env.testing
 ```env
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -40,17 +42,30 @@ DB_USERNAME=streets-user
 DB_PASSWORD=admin
 ```
 
+```env
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=streets-db-testing
+DB_USERNAME=streets-user
+DB_PASSWORD=admin
+```
 ## Run migrations
 ```bash
 php artisan migrate
 ```
 
-## Run seeders
+## Run the tests
+```bash
+php artisan test
 ```
-// For Regiones, Provincias & Ciudades
+
+## Run seeders
+```bash
+# For Regiones, Provincias & Ciudades
 php artisan db:seed --class=BulkSeeder
 
-// Faker data for Calles
+# Faker data for Calles, if needed for testing.
 php artisan db:seed --class=CalleSeeder
 ```
 
