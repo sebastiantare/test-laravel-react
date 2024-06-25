@@ -44,7 +44,7 @@ const Buscar = ({ }) => {
 
   const handlePagination = (page: string | null) => {
     if (page) {
-      getCalles(page, filtros).then((data) => setCalles(data)).catch(e => console.log(e));
+      getCalles(page, filtros, '', '', '').then((data) => setCalles(data)).catch(e => console.log(e));
     }
   };
 
@@ -95,7 +95,6 @@ const Buscar = ({ }) => {
         <div className="mt-2 text-center text-sm text-gray-400">
           Resultados: {pageData.meta.total}
         </div>
-
       </div>
     );
   };

@@ -95,7 +95,7 @@ const Mantenedor = () => {
 
   return (
     <div className="flex flex-col">
-      <p className="p-4 text-blue-600 text-2xl">Crear Calle</p>
+      <p className="p-4 text-gray-800 text-2xl title-shadow">Nueva Calle</p>
       <div className='flex flex-row items-center text-sm'>
 
         <div className='p-4'>

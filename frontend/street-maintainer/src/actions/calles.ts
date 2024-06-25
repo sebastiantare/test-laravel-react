@@ -2,7 +2,7 @@ import type { TableCalle, Calle, Pagination } from "../types";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_HOST;
 
-export async function getCalles(page: string | null = null, query = ''): Promise<Pagination<TableCalle>> {
+export async function getCalles(page: string | null = null, query = '', ciudad = '', provincia = '', region = ''): Promise<Pagination<TableCalle>> {
   try {
     let url = page ?? `${baseUrl}/calles?query=${query}`;
     if (page) url = `${url}&query=${query}`
