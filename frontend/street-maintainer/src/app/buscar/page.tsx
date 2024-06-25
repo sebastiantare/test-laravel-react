@@ -27,15 +27,24 @@ const initialPaginationState: Pagination<TableCalle> = {
   data: []
 };
 
+// Reusing table type for searching
+const initialStateFiltros: TableCalle = {
+  id: -1,//not used
+  nombre: "",
+  ciudad: "",
+  provincia: "",
+  region: ""
+};
+
 const Buscar = ({ }) => {
-  const [filtros, setFiltros] = useState<string>('');
+  const [filtros, setFiltros] = useState<TableCalle>(initialStateFiltros);
   const [calles, setCalles] = useState<Pagination<TableCalle>>(initialPaginationState);
   const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
   const [selectedCalle, setSelectedCalle] = useState<TableCalle | null>(null);
 
   useEffect(() => {
-    getCalles()
+    getCalles(null, filtros)
       .then((data) => setCalles(data))
       .catch(e => console.log(e));
   }, []);
@@ -52,7 +61,7 @@ const Buscar = ({ }) => {
 
   const handlePagination = (page: string | null) => {
     if (page) {
-      getCalles(page, filtros, '', '', '').then((data) => setCalles(data)).catch(e => console.log(e));
+      getCalles(page, filtros).then((data) => setCalles(data)).catch(e => console.log(e));
     }
   };
 
@@ -68,7 +77,7 @@ const Buscar = ({ }) => {
       console.log(result);
       setIsOpenDelete(false);
 
-      getCalles()
+      getCalles(null, filtros)
         .then((data) => setCalles(data))
         .catch(e => console.log(e));
     }).catch(e => console.log(e));
@@ -86,7 +95,7 @@ const Buscar = ({ }) => {
       console.log(result);
       setIsOpenUpdate(false);
 
-      getCalles()
+      getCalles(null, filtros)
         .then((data) => setCalles(data))
         .catch(e => console.log(e));
     }).catch(e => console.log(e));
@@ -171,16 +180,52 @@ const Buscar = ({ }) => {
   return (
     <div className="flex flex-col m-4">
       <div className="flex flex-row">
-        <div className="p-4">
-          <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">Buscar por:</label>
+        <h1>Búsqueda Avanzanda</h1>
+      </div>
+      <div className="flex flex-row">
+        <div className="px-8 py-2">
           <input
-            placeholder="Nombre Calle"
+            placeholder="Calle"
             type="text"
             id="textInput"
             name="textInput"
             className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            value={filtros}
-            onChange={(e) => setFiltros(e.target.value)}
+            value={filtros.nombre}
+            onChange={(e) => setFiltros({ ...filtros, 'nombre': e.target.value })}
+          />
+        </div>
+
+        <div className="px-8 py-2">
+          <input
+            placeholder="Ciudad"
+            type="text"
+            id="textInput"
+            name="textInput"
+            className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={filtros.ciudad}
+            onChange={(e) => setFiltros({ ...filtros, 'ciudad': e.target.value })}
+          />
+        </div>
+        <div className="px-8 py-2">
+          <input
+            placeholder="Provincia"
+            type="text"
+            id="textInput"
+            name="textInput"
+            className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={filtros.provincia}
+            onChange={(e) => setFiltros({ ...filtros, 'provincia': e.target.value })}
+          />
+        </div>
+        <div className="px-8 py-2">
+          <input
+            placeholder="Region"
+            type="text"
+            id="textInput"
+            name="textInput"
+            className="mt-0 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={filtros.region}
+            onChange={(e) => setFiltros({ ...filtros, 'region': e.target.value })}
           />
         </div>
       </div>

@@ -2,10 +2,25 @@ import type { TableCalle, Calle, Pagination } from "../types";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_HOST;
 
-export async function getCalles(page: string | null = null, query = '', ciudad = '', provincia = '', region = ''): Promise<Pagination<TableCalle>> {
+export async function getCalles(page: string | null = null, query: TableCalle): Promise<Pagination<TableCalle>> {
   try {
-    let url = page ?? `${baseUrl}/calles?query=${query}`;
-    if (page) url = `${url}&query=${query}`
+    let params = `query=${query.nombre}`;
+
+    if (query.ciudad) {
+      params += `&ciudad=${query.ciudad}`;
+    }
+
+    if (query.provincia) {
+      params += `&provincia=${query.provincia}`;
+    }
+
+    if (query.region) {
+      params += `&region=${query.region}`;
+    }
+
+    let url = page ?? `${baseUrl}/calles?${params}`;
+
+    if (page) url = `${url}&${params}`
 
     const response = await fetch(url);
     const data = await response.json() as Pagination<TableCalle>;
