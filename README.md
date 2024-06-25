@@ -1,6 +1,12 @@
+# Clone Project
+```bash
+git clone git@github.com:sebastiantare/test-laravel-react.git
+cd test-laravel-react
+```
+
 # Backend
 
-## Install PHP
+## Install PHP 8.1
 ```bash
 sudo apt install --no-install-recommends php8.1
 sudo apt install -y php8.1-cli php8.1-common php8.1-mysql php8.1-zip php8.1-gd php8.1-mbstring php8.1-curl php8.1-xml php8.1-bcmath
@@ -18,7 +24,12 @@ sudo mv composer.phar /usr/local/bin/composer
 ## Install Postgres
 https://www.postgresql.org/download/
 
-## Create DB in Postgres
+```bash
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service
+```
+
+## Create DBs in Postgres
 ```bash
 sudo -i -u postgres
 createdb streets-db
@@ -35,6 +46,12 @@ exit
 ## Setup Laravel .env and .env.testing
 
 .env
+
+```bash
+cd backend/api-rest/
+cp .env.example .env
+cp .env.example .env.testing
+```
 
 ```env
 DB_CONNECTION=pgsql
@@ -81,7 +98,7 @@ php artisan serve
 
 # Frontend
 
-Node version 18
+Node version 18. Created with [T3](https://t3.gg/) Stack (Next.js) just for the frontend.
 
 ## Install modules
 ```bash
