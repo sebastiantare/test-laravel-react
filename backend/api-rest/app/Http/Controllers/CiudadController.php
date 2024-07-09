@@ -69,7 +69,7 @@ class CiudadController extends Controller
 
         $ciudad->delete();
 
-        return response()->json(['message' => 'Ciudad deleted']);
+        return response()->json(['message' => 'Ciudad deleted'], 204);
     }
 
     // Obtener las calles de la ciudad

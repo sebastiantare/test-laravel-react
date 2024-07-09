@@ -74,7 +74,7 @@ class ProvinciaController extends Controller
 
         $provincia->delete();
 
-        return response()->json(['message' => 'Provincia deleted']);
+        return response()->json(['message' => 'Provincia deleted'], 204);
     }
 
     public function getCiudades($id)

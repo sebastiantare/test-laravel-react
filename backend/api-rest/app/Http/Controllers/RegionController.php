@@ -62,7 +62,7 @@ class RegionController extends Controller
 
         $region->delete();
 
-        return response()->json(['message' => 'Region deleted']);
+        return response()->json(['message' => 'Region deleted'], 204);
     }
 
     public function getProvincias($id)
